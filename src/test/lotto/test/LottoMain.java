@@ -14,6 +14,7 @@ public class LottoMain {
 }
 
 class LottoList {
+
 	public void lottoList(int number) {
 		Set<Integer> list = new TreeSet<Integer>();
 
@@ -23,7 +24,8 @@ class LottoList {
 				int num = random.nextInt(45) + 1;
 				list.add(num);
 			}
-			System.out.println("로또번호" + i + " : " + list);
+			String bracketOut = "로또번호" + i + " : " + list;
+			System.out.println(bracketOut.replaceAll("\\[|\\]", ""));
 			list.clear();
 		}
 

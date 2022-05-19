@@ -1,10 +1,9 @@
-package kr.or.ddit.basic;
+package collectionframework.kr.or.ddit.basic;
 
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import oracle.net.aso.p;
 
 public class T07EqualsHashCodeTest {
 	/*
@@ -32,6 +31,7 @@ public class T07EqualsHashCodeTest {
 //	    메모리 주소 맵핑 정보를 기반으로 한 정수값을 반환한다.
 //	    그러므로, 클래스에서 hashCode()메서드를 override하지 않으면
 //	    절대로 두 객체가 같은것으로 간주 될 수 없다.
+	
 	public static void main(String[] args) {
 		// 1.
 		Object obj = new Object();
@@ -46,6 +46,7 @@ public class T07EqualsHashCodeTest {
 
 		// 3.
 		System.out.println("Aa".hashCode() + " : " + "BB".hashCode());
+		System.out.println("Aa".hashCode() == "BB".hashCode());
 
 		Person p1 = new Person(1, "홍길동");
 		Person p2 = new Person(1, "홍길동");
