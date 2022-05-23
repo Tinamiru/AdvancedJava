@@ -19,9 +19,9 @@ public class T07WildCardTest {
 
 //		super 키워드를 이용한 하한 제한(Lower Bounds)
 //		member 타입의 변수를 이용하여 List로부터 객체를 꺼내올 수 없다.
-		for (Member obj : list) { // 컴파일 에러 발생
-			System.out.println(obj);
-		}
+//		for (Member obj : list) { // 컴파일 에러 발생
+//			System.out.println(obj);
+//		}
 	}
 
 	public void registerMemberInfo(List<? extends Member> list) {
@@ -31,7 +31,7 @@ public class T07WildCardTest {
 //				하므로 아직 구체적인 타입이 정해지지 않았다. => 컴파일 에러 발생)
 
 		Member m = new Member("홍길동", 33);
-		list.add(m); // 등록불가
+//		list.add(m); // 등록불가
 	}
 
 	public void registerMemberInfo2(List<? super Member> list) {

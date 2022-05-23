@@ -88,12 +88,11 @@ public class T08EnumTest {
 		System.out.println(city == City.대전);
 		System.out.println(city == City.대구);
 
-//		System.out.println(HomeTown.대전 == City.대전);
+//		System.out.println(HomeTown.대전 == City.대전); // 컴파일 에러
 
 		System.out.println("대구 => " + city.compareTo(City.대구));
 		System.out.println("서울 => " + city.compareTo(City.서울));
 		System.out.println("대전 => " + city.compareTo(City.대전));
 
 	}
-
 }

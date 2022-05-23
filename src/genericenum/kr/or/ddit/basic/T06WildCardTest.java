@@ -51,13 +51,13 @@ public class T06WildCardTest {
 		displayCartItemInfo(meatCart);
 		displayCartItemInfo(drinkCart);
 
-		displayCartItemInfo2(foodCart);
-		displayCartItemInfo2(meatCart);
+//		displayCartItemInfo2(foodCart);
+//		displayCartItemInfo2(meatCart);
 		displayCartItemInfo2(drinkCart);
 
 		displayCartItemInfo3(foodCart);
 		displayCartItemInfo3(meatCart);
-		displayCartItemInfo3(drinkCart);
+//		displayCartItemInfo3(drinkCart);
 
 	}
 }
