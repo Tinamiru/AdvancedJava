@@ -10,22 +10,28 @@ public class T08ThreadPriorityTest {
 				new ThreadTest1(), new ThreadTest2() };
 
 		// 우선 순위는 start()메서드를 호출하기 전에 설정해야 한다.
-		for (int i = 0; i < ths.length; i++) {
-			if (i == 5) {
+		for(int i=0; i < ths.length; i++) {
+			if(i == 5) {
 				ths[i].setPriority(10);
-			} else {
+			}else {
 				ths[i].setPriority(1);
 			}
 		}
-
+		
+		for(Thread th : ths) {
+			th.start();
+		}
+		
 		// 우선순위 출력
-		for (Thread th : ths) {
+		for(Thread th : ths) {
 			try {
 				th.join();
 			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
+		
 	}
 }
 
@@ -36,7 +42,7 @@ class ThreadTest1 extends Thread {
 			System.out.println(ch);
 
 			// 아무것도 하지 않는 반복문(시간때우기용)
-			for (long i = 1; i <= 1000000000L; i++) {
+			for (long i = 1; i <= 100000000L; i++) {
 			}
 		}
 	}
@@ -49,7 +55,7 @@ class ThreadTest2 extends Thread {
 		for (char ch = 'a'; ch <= 'z'; ch++) {
 			System.out.println(ch);
 			// 아무것도 하지 않는 반복문(시간때우기용)
-			for (long i = 1; i <= 1000000000L; i++) {
+			for (long i = 1; i <= 100000000L; i++) {
 			}
 		}
 	}
