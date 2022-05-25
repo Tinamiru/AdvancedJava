@@ -1,9 +1,6 @@
 package thread.kr.or.ddit.basic.test;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 public class HorseRacing {
 
@@ -24,188 +21,253 @@ public class HorseRacing {
 //
 //	경기가 끝나면 등수를 기준으로 정렬하여 출력한다.
 
-	public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws InterruptedException {
 
-		Trigger trigger = new Trigger();
-		Thread raceT = new RaceCountDown(trigger);
+        Trigger trigger = new Trigger();
+        Horse[] horses = new Horse[]{new Horse("적토마", trigger), new Horse("강건마", trigger), new Horse("하지마", trigger),
+                new Horse("구루마", trigger), new Horse("검정말", trigger), new Horse("조랑말", trigger),
+                new Horse("이런말", trigger), new Horse("저런말", trigger), new Horse("말말말", trigger),
+                new Horse("그짓말", trigger),
 
-		Horse[] h = new Horse[] { new Horse("샘쑹          :", trigger), new Horse("에아뽀으      :", trigger),
-				new Horse("모어쌍        :", trigger), new Horse("오링지        :", trigger),
-				new Horse("이상해씨      :", trigger), new Horse("조랑말        :", trigger),
-				new Horse("호놀룰루      :", trigger), new Horse("라이라이차차차:", trigger), new Horse("돼지왕        :", trigger),
-				new Horse("명륜진사갈비  :", trigger) };
+        };
+        RailConnect rail = new RailConnect(horses, trigger);
 
-		for (int i = 0; i < h.length; i++) {
-			h[i].setPriority(i + 1);
-		}
+        ready(horses);
+        countDown();
 
-		System.out.println("경주를 준비합니다.");
-//		Thread.sleep(3000);
-		System.out.print("경주마 입장중");
 
-//		for (int i = 0; i < 30; i++) {
-//			Thread.sleep(200);
-//			System.out.print(".");
-//
-//		}
-		System.out.println();
-		System.out.println("===============================================");
-		int i = 1;
-		for (Horse horse : h) {
-			System.out.print(i + "번 레인 : ");
-//			Thread.sleep(1000);
-			System.out.print(horse.getHorse());
-//			Thread.sleep(1000);
-			System.out.println();
-			i++;
-		}
+        for (Horse horse : horses) {
+            horse.start();
+        }
+        rail.start();
 
-		System.out.println("준비.");
-//		Thread.sleep(1500);
-		raceT.start();
-		for (Thread th : h) {
-			th.start();
-		}
-		for (Thread th : h) {
-			try {
-				th.join();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-}
+        for (Horse horse : horses) {
+            horse.join();
 
-class RaceCountDown extends Thread {
+        }
+        rail.join();
 
-	private Trigger trigger;
+        Arrays.sort(horses);
 
-	public RaceCountDown(Trigger trigger) {
-		this.trigger = trigger;
-	}
+        Thread.sleep(1300);
+        for (int i = 0; i < 20; i++) {
+            System.out.println();
+        }
+        for (int i = 0; i < 5; i++) {
+            System.out.print("-");
+            Thread.sleep(50);
+        }
+        System.out.print("순");
+        Thread.sleep(50);
+        System.out.print("위");
+        Thread.sleep(50);
+        for (int i = 0; i < 5; i++) {
+            System.out.print("-");
+            Thread.sleep(50);
+        }
+        System.out.print("\n");
+        Thread.sleep(300);
+        for (Horse h : horses) {
+            System.out.println(h);
+            Thread.sleep(300);
+        }
+    }
 
-	public void run() {
-		try {
-			for (int i = 3; i > 0; i--) {
-				for (int j = 0; j < 20; j++) {
-					System.out.println();
-				}
-				System.out.println(i);
-				try {
-					Thread.sleep(1100);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-				for (int j = 0; j < 20; j++) {
-					System.out.println();
-				}
-			}
-			System.out.print("경");
-			Thread.sleep(200);
-			System.out.print("주");
-			Thread.sleep(200);
-			System.out.print("!");
-			Thread.sleep(1500);
-			for (int j = 0; j < 20; j++) {
-				System.out.println();
-			}
-			System.out.print("시");
-			Thread.sleep(150);
-			System.out.print("작");
-			Thread.sleep(150);
-			System.out.print("합");
-			Thread.sleep(150);
-			System.out.print("니");
-			Thread.sleep(150);
-			System.out.print("다");
-			Thread.sleep(150);
-			System.out.print("!");
-			Thread.sleep(2200);
-			for (int j = 0; j < 20; j++) {
-				System.out.println();
-			}
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+    private static void ready(Horse[] horses) throws InterruptedException {
+        System.out.println("경주를 준비합니다. ");
+        Thread.sleep(2000);
+        for (int i = 0; i < 20; i++) {
+            System.out.println();
+        }
+        System.out.println("현재 출력된 글씨가 전부 보이게 창을 조절해 주세요.");
+        for (int i = 0; i < 10; i++) {
+            System.out.println("----------------------범위-----------------------");
+        }
+        Thread.sleep(4000);
+        System.out.print("경주마 입장중");
+        for (int i = 0; i < 15; i++) {
+            Thread.sleep(200);
+            System.out.print(".");
 
-		trigger.horseStart = true;
-	}
+        }
+        System.out.println();
+        Thread.sleep(2000);
+        for (int i = 0; i < 20; i++) {
+            System.out.println();
+        }
+        for (int i = 0; i < horses.length; i++) {
+            System.out.print((i + 1) + "번 레인 : ");
+            Thread.sleep(300);
+            System.out.print(horses[i].getHorseName() + "🐎");
+            Thread.sleep(300);
+            System.out.println();
+        }
+        Thread.sleep(3000);
+        for (int i = 0; i < 20; i++) {
+            System.out.println();
+        }
+        System.out.println("=====================Ready========================");
+        Thread.sleep(1500);
+    }
 
+    private static void countDown() {
+        try {
+            for (int i = 3; i > 0; i--) {
+                for (int j = 0; j < 20; j++) {
+                    System.out.println();
+                }
+                System.out.println(i);
+                try {
+                    Thread.sleep(1100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                for (int j = 0; j < 20; j++) {
+                    System.out.println();
+                }
+            }
+            System.out.print("경");
+            Thread.sleep(200);
+            System.out.print("주");
+            Thread.sleep(200);
+            System.out.print("!");
+            Thread.sleep(1500);
+            for (int j = 0; j < 20; j++) {
+                System.out.println();
+            }
+            System.out.print("시");
+            Thread.sleep(150);
+            System.out.print("작");
+            Thread.sleep(150);
+            System.out.print("합");
+            Thread.sleep(150);
+            System.out.print("니");
+            Thread.sleep(150);
+            System.out.print("다");
+            Thread.sleep(150);
+            System.out.print("!");
+            Thread.sleep(2200);
+            for (int j = 0; j < 20; j++) {
+                System.out.println();
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 }
 
 class Horse extends Thread implements Comparable<Horse> {
-	private Trigger trigger;
 
-	private String horse;
-	private int rank;
+    private final String horseName;
+    private final Trigger trigger;
 
-	public Horse() {
-	}
+    private int location;
+    private int rank;
 
-	public Horse(String string, Trigger trigger) {
-		this.horse = string;
-		this.trigger = trigger;
-	}
+    public Horse(String horseName, Trigger trigger) {
+        this.horseName = horseName;
+        this.trigger = trigger;
+    }
 
-	public String getHorse() {
-		return horse;
-	}
+    @Override
+    public String toString() {
+        return String.format("%s등 : %s", rank, horseName);
+    }
 
-	public void setHorse(String horse) {
-		this.horse = horse;
-	}
+    @Override
+    public int compareTo(Horse o) {
+        return Integer.compare(this.rank, o.rank);
+    }
 
-	@Override
-	public int compareTo(Horse o) {
-		return Integer.compare(this.rank, o.rank);
-	}
+    ///////////////////////// 생성자, 필드/////////////////////////////
 
-	///////////////////////// 생성자, 필드/////////////////////////////
+    @Override
+    public void run() {
+        Random r = new Random();
+        trigger.ready = false;
 
-	public void run() {
-		while (true) {
-			if (trigger.horseStart) {
-				try {
-					Random r = new Random();
-					Map<String, ArrayList<String>> map = new HashMap();
-					ArrayList<String> arrList = new ArrayList<>();
-					arrList.add(">");
-					
-					for (int i = 1; i < 50; i++) {
-						arrList.add("-");
-					}
-					
-					map.put(getName(), arrList);
-					String horseName = getHorse() + ": ";
-					while (trigger.roundOK) {
-						String bracketOut = "" + map.get(getName());
+        for (int i = 1; i < 50; i++) {
+            setLocation(i);
+            try {
+                Thread.sleep(r.nextInt(10) * 50);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
-						System.out.println(horseName + bracketOut.replaceAll("\\[|\\]|\\ |\\,", ""));
-						int rNum = r.nextInt(10) + 1;
-						map.put(getName(), arrList);
-						Thread.sleep(100);
-						if (rNum > 5) {
-							arrList// 순서바꾸기
-						}
+        }
+        rank = ++trigger.rank;
 
-					}
-					break;
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
+        if (rank == 10) {
+            trigger.horseStop = true;
+        }
 
-			}
+    }
 
-		}
-	}
+    public int getLocation() {
+        return location;
+    }
 
-	public void transfer() {
+    public void setLocation(int location) {
+        this.location = location;
+    }
 
-	}
+    public String getHorseName() {
+        return horseName;
+    }
+
 }
 
 class Trigger {
-	public volatile boolean isOK = false;
-	public volatile boolean horseStart = false;
-	public volatile boolean roundOK = true;
+    public volatile boolean horseStop = false;
+    public volatile boolean ready = true;
+
+    public int rank;
+
+}
+
+class RailConnect extends Thread {
+    private final Horse[] horses;
+    private final Trigger trigger;
+
+    public RailConnect(Horse[] horses, Trigger trigger) {
+        this.horses = horses;
+        this.trigger = trigger;
+    }
+
+    @Override
+    public void run() {
+        while (true) {
+            if (!trigger.ready) {
+                break;
+            }
+        }
+//////////////////////////////////출발선///////////////////////////////
+        while (true) {
+            try {
+                if (trigger.horseStop) {
+                    break;
+                }
+
+                for (int i = 0; i < 20; i++) {
+                    System.out.println();
+                }
+                for (Horse hors : horses) {
+                    System.out.print(hors.getHorseName() + " | ");
+                    for (int j = 0; j < 50; j++) {
+                        if (hors.getLocation() == j) {
+                            System.out.print("🐎");
+                        } else {
+                            System.out.print("Ξ");
+                        }
+                    }
+                    System.out.print("▒");
+                    System.out.println();
+                }
+                Thread.sleep(100);
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
